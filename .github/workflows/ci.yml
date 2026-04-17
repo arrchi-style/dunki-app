@@ -49,5 +49,5 @@ jobs:
       # When you enable task distribution, run the e2e-ci task instead of e2e
       - run: pnpm exec nx affected -t lint test build e2e --base=origin/main
       # Nx Cloud recommends fixes for failures to help you get CI green faster. Learn more: https://nx.dev/ci/features/self-healing-ci
-      - run: pnpm exec nx fix-ci
-        if: always()
+      # - run: pnpm exec nx fix-ci
+      #   if: always()

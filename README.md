@@ -1,5 +1,10 @@
 # DunkiApp
 
+## 🚀 AI-First Development
+This repository is built with an **AI-augmented workflow**. 
+
+To ensure code consistency and architectural integrity, all developers (and their AI assistants) must follow the [AI Development Guide](./AI-GUIDE.md). This ensures that features stay Zoneless, Signal-based, and Nx-compliant.
+
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
 ✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.

@@ -4,9 +4,9 @@
   "license": "MIT",
   "scripts": {
     "start": "pnpm nx serve shop",
-    "build": "pnpm nx build source",
-    "lint": "pnpm nx lint source",
-    "test": "pnpm nx test source",
+    "build": "pnpm nx build shop",
+    "lint": "pnpm nx lint shop",
+    "test": "pnpm nx test shop",
     "e2e": "npx nx e2e shop-e2e"
   },
   "private": true,

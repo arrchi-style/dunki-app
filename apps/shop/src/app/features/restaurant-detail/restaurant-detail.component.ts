@@ -13,6 +13,7 @@ import { CartService } from './data-access/cart.service';
 })
 export class RestaurantDetailComponent {
   private cartService = this.resolveCartService();
+  private router = inject(Router);
 
   cartItems = this.cartService.cartItems;
   subtotal = this.cartService.totalPrice;
@@ -34,8 +35,7 @@ export class RestaurantDetailComponent {
   }
 
   proceedToCheckout() {
-    const router = inject(Router);
-    router.navigate(['/checkout']);
+    this.router.navigate(['/checkout']);
   }
 
   private resolveCartService(): CartService {

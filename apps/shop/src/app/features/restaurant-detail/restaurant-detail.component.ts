@@ -1,6 +1,7 @@
-import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Dish } from './models/dish.model';
 import { MOCK_DISHES } from './constants/dish.constants';
+import { CartService } from './data-access/cart.service';
 
 @Component({
   selector: 'app-restaurant-detail',
@@ -10,13 +11,32 @@ import { MOCK_DISHES } from './constants/dish.constants';
   styleUrl: './restaurant-detail.component.scss',
 })
 export class RestaurantDetailComponent {
-  cart = signal<Dish[]>([]);
-  totalPrice = computed(() => this.cart().reduce((sum, dish) => sum + dish.price, 0));
+  private cartService = this.resolveCartService();
+
+  cartItems = this.cartService.cartItems;
+  subtotal = this.cartService.totalPrice;
+  totalPrice = this.subtotal;
+  deliveryFee = computed(() => this.subtotal() > 500 ? 0 : 50);
+  isFreeDeliveryMet = computed(() => this.subtotal() >= 500);
+  totalWithDelivery = computed(() => this.subtotal() + this.deliveryFee());
+  itemCount = computed(() => this.cartItems().reduce((sum, item) => sum + item.quantity, 0));
 
   dishes = MOCK_DISHES;
   restaurant = { name: 'Sample Restaurant', description: 'Best food in town' };
 
   addToCart(dish: Dish) {
-    this.cart.update(cart => [...cart, dish]);
+    this.cartService.addToCart(dish);
+  }
+
+  removeFromCart(dishId: number) {
+    this.cartService.removeFromCart(dishId);
+  }
+
+  private resolveCartService(): CartService {
+    try {
+      return inject(CartService, { optional: true }) ?? new CartService();
+    } catch {
+      return new CartService();
+    }
   }
 }

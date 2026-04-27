@@ -14,7 +14,8 @@ describe('RestaurantDetailComponent', () => {
   });
 
   it('should initialize with empty cart', () => {
-    expect(component.cart()).toEqual([]);
+    expect(component.cartItems()).toEqual([]);
+    expect(component.itemCount()).toBe(0);
   });
 
   it('should initialize totalPrice to 0', () => {
@@ -39,7 +40,8 @@ describe('RestaurantDetailComponent', () => {
   it('should add a dish to the cart', () => {
     const dish: Dish = component.dishes[0];
     component.addToCart(dish);
-    expect(component.cart()).toEqual([dish]);
+    expect(component.cartItems()).toEqual([{ dish, quantity: 1 }]);
+    expect(component.itemCount()).toBe(1);
   });
 
   it('should update totalPrice when adding to cart', () => {
@@ -55,7 +57,8 @@ describe('RestaurantDetailComponent', () => {
     const dish = component.dishes[0];
     component.addToCart(dish);
     component.addToCart(dish);
-    expect(component.cart()).toEqual([dish, dish]);
+    expect(component.cartItems()).toEqual([{ dish, quantity: 2 }]);
+    expect(component.itemCount()).toBe(2);
     expect(component.totalPrice()).toBe(dish.price * 2);
   });
 });

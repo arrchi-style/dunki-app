@@ -6,7 +6,8 @@
     "start": "pnpm nx serve shop",
     "build": "pnpm nx build source",
     "lint": "pnpm nx lint source",
-    "test": "pnpm nx test source"
+    "test": "pnpm nx test source",
+    "e2e": "npx nx e2e shop-e2e"
   },
   "private": true,
   "dependencies": {

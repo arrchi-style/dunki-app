@@ -50,6 +50,15 @@
       </p>
       <p class="text-lg font-bold">Total: ${{ totalWithDelivery() }}</p>
     </div>
+
+    <div class="mt-6">
+      <button
+        (click)="proceedToCheckout()"
+        class="w-full bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 font-semibold transition-colors"
+        [disabled]="cartItems().length === 0">
+        Proceed to Checkout
+      </button>
+    </div>
     } @else {
     <p class="text-gray-600">Your cart is empty.</p>
     }

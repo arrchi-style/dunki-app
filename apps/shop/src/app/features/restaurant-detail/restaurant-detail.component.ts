@@ -1,4 +1,5 @@
 import { Component, computed, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Dish } from './models/dish.model';
 import { MOCK_DISHES } from './constants/dish.constants';
 import { CartService } from './data-access/cart.service';
@@ -12,6 +13,7 @@ import { CartService } from './data-access/cart.service';
 })
 export class RestaurantDetailComponent {
   private cartService = this.resolveCartService();
+  private router = inject(Router);
 
   cartItems = this.cartService.cartItems;
   subtotal = this.cartService.totalPrice;
@@ -30,6 +32,10 @@ export class RestaurantDetailComponent {
 
   removeFromCart(dishId: number) {
     this.cartService.removeFromCart(dishId);
+  }
+
+  proceedToCheckout() {
+    this.router.navigate(['/checkout']);
   }
 
   private resolveCartService(): CartService {

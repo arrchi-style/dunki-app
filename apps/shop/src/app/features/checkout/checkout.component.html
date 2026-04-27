@@ -1,0 +1,66 @@
+<h2>Checkout</h2>
+
+<form [formGroup]="form" (ngSubmit)="placeOrder()">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" placeholder="Enter your full name">
+    @if (form.get('name')?.invalid && form.get('name')?.touched) {
+      <mat-error>Name is required</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Phone</mat-label>
+    <input matInput formControlName="phone" placeholder="Enter your phone number">
+    @if (form.get('phone')?.invalid && form.get('phone')?.touched) {
+      <mat-error>Please enter a valid phone number</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Address</mat-label>
+    <textarea matInput formControlName="address" placeholder="Enter your delivery address" rows="3"></textarea>
+    @if (form.get('address')?.invalid && form.get('address')?.touched) {
+      <mat-error>Address is required</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Payment Method</mat-label>
+    <mat-select formControlName="paymentMethod">
+      <mat-option value="cash">Cash</mat-option>
+      <mat-option value="card">Card</mat-option>
+    </mat-select>
+    @if (form.get('paymentMethod')?.invalid && form.get('paymentMethod')?.touched) {
+      <mat-error>Payment method is required</mat-error>
+    }
+  </mat-form-field>
+
+  @if (cartService.cartItems().length > 0) {
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      @for (item of cartService.cartItems(); track item.dish.id) {
+        <div class="order-item">
+          <span>{{ item.dish.name }} x {{ item.quantity }}</span>
+          <span>${{ item.dish.price * item.quantity }}</span>
+        </div>
+      }
+      <div class="total">
+        <strong>Total: ${{ cartService.totalPrice() }}</strong>
+      </div>
+    </div>
+  }
+
+  @if (isCartEmpty()) {
+    <div class="empty-cart">
+      <p>Your cart is empty. Please add items to your cart before placing an order.</p>
+      <button mat-stroked-button color="primary" (click)="goBackToMenu()" class="mt-4">
+        Return to Menu
+      </button>
+    </div>
+  }
+
+  <button mat-raised-button color="primary" [disabled]="isButtonDisabled()" type="submit">
+    Place Order
+  </button>
+</form>

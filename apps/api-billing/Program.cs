@@ -17,6 +17,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+app.UseCors();
+
 // if (app.Environment.IsDevelopment())
 // {
 //     app.UseSwagger();

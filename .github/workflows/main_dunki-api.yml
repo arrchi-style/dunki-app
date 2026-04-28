@@ -37,11 +37,17 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build ./apps/api-billing/api-billing.csproj --configuration Release /p:CheckNxModuleBoundaries=false
+        run: dotnet build ./apps/api-billing/api-billing.csproj --configuration Release
+        env:
+          SKIP_NX_DOTNET_CHECK: 'true'
+          CheckNxModuleBoundaries: 'false'
 
       - name: dotnet publish
-        run: dotnet publish ./apps/api-billing/api-billing.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp /p:CheckNxModuleBoundaries=false
-
+        run: dotnet publish ./apps/api-billing/api-billing.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        env:
+          SKIP_NX_DOTNET_CHECK: 'true'
+          CheckNxModuleBoundaries: 'false'
+          
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:

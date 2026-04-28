@@ -1,0 +1,20 @@
+{
+  "name": "api-billing",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/api-billing",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "dotnet build apps/api-billing/api-billing.csproj"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "dotnet watch run --project apps/api-billing/api-billing.csproj"
+      }
+    }
+  }
+}

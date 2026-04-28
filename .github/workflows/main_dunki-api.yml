@@ -14,40 +14,26 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read #This is required for actions/checkout
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8
-
-      - name: Install dependencies
-        run: pnpm install
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
 
+      # ЦЕЙ КРОК ВИРІШИТЬ ПРОБЛЕМУ
+      - name: Disable Nx Targets for CI
+        run: |
+          rm -f Directory.Build.targets
+          echo "Directory.Build.targets removed to skip node_modules dependency"
+
       - name: Build with dotnet
         run: dotnet build ./apps/api-billing/api-billing.csproj --configuration Release
-        env:
-          SKIP_NX_DOTNET_CHECK: 'true'
-          CheckNxModuleBoundaries: 'false'
 
       - name: dotnet publish
         run: dotnet publish ./apps/api-billing/api-billing.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
-        env:
-          SKIP_NX_DOTNET_CHECK: 'true'
-          CheckNxModuleBoundaries: 'false'
-          
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -81,4 +67,3 @@ jobs:
           app-name: 'dunki-api'
           slot-name: 'Production'
           package: .
-          

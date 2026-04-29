@@ -64,6 +64,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'dunki-api'
+          app-name: 'dunki-api-amdec0exeeedh3ap'
           slot-name: 'Production'
           package: .

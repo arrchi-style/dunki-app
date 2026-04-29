@@ -7,10 +7,11 @@ namespace ApiBilling.Controllers;
 public class OrdersController : ControllerBase
 {
     [HttpPost]
-    public IActionResult CreateOrder([FromBody] OrderDto order)
+    public IActionResult CreateOrder([FromBody] OrderDto data)
     {
-        // Тут буде твоя логіка збереження замовлення
-        // Поки що просто повертаємо успіх для тесту фронтенду
-        return Ok(order);
+        if (data == null) return BadRequest("Data is null");
+
+        // Твоя логіка
+        return Ok(data);
     }
 }

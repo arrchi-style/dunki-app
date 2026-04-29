@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     { 
       provide: API_URL, 
-      useValue: 'https://dunki-api-amdec0exeeedh3ap.southeastasia-01.azurewebsites.net' 
+      useValue: 'https://dunki-api-amdec0exeeedh3ap.southeastasia-01.azurewebsites.net'
     }
   ],
 };

@@ -1,8 +1,9 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Імпортуємо
-import { firstValueFrom } from 'rxjs'; // Для зручної роботи з Promise
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { CartService } from '../../restaurant-detail/data-access/cart.service';
 import { Order, OrderForm } from './order.model';
+import { API_URL } from '../../../app.config';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { Order, OrderForm } from './order.model';
 export class CheckoutService {
   private cartService = inject(CartService);
   private http = inject(HttpClient);
+  private baseUrl = inject(API_URL); // Впорскуємо URL бекенду
 
   readonly cartItems = this.cartService.cartItems;
   readonly subtotal = this.cartService.totalPrice;
@@ -44,8 +46,9 @@ export class CheckoutService {
     };
 
     try {
+      // Змінюємо URL на наш бекенд в Azure
       const response = await firstValueFrom(
-        this.http.post<Order>('http://localhost:3000/api/orders', orderPayload)
+        this.http.post<Order>(`${this.baseUrl}/api/orders`, orderPayload)
       );
 
       this.cartService.clearCart();
@@ -56,7 +59,7 @@ export class CheckoutService {
 
     } catch (error) {
       console.error('Backend error:', error);
-      const result = { success: false, error: 'Server connection failed' };
+      const result = { success: false, error: 'Order processing failed' };
       this.lastOrderResult.set(result);
       return result;
     } finally {

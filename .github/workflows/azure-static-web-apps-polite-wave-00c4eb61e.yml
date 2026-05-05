@@ -34,6 +34,8 @@ jobs:
           app_build_command: "npx nx build dunki-app --prod"
         env: # Додай цей блок
             NPM_CONFIG_LEGACY_PEER_DEPS: true
+            NPM_CONFIG_IGNORE_PREPUBLISH: true 
+            NPM_CONFIG_IGNORE_SCRIPTS: true
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:

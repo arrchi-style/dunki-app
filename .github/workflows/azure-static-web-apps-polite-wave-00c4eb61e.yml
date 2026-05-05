@@ -31,7 +31,7 @@ jobs:
 
         # КРОК 3: Самі запускаємо білд Nx
       - name: Build Project
-        run: npx nx build dunki-app --prod
+        run: npx nx build shop --prod
 
         # КРОК 4: Завантажуємо результат в Azure
       - name: Deploy to Azure
@@ -43,7 +43,7 @@ jobs:
           action: "upload"
           app_location: "/" 
           api_location: ""
-          output_location: "dist/apps/dunki-app/browser" 
+          output_location: "dist/apps/shop/browser" 
           skip_app_build: true # Тепер це спрацює, бо білд вже лежить в output_location
 
   close_pull_request_job:

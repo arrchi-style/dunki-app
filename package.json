@@ -2,6 +2,7 @@
   "name": "@dunki-app/source",
   "version": "0.0.0",
   "license": "MIT",
+  "packageManager": "npm@10.2.4",
   "scripts": {
     "start": "pnpm nx serve shop",
     "start:api-orders": "pnpm nx serve api-orders",

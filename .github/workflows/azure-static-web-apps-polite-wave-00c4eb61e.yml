@@ -36,6 +36,8 @@ jobs:
             NPM_CONFIG_LEGACY_PEER_DEPS: true
             NPM_CONFIG_IGNORE_PREPUBLISH: true 
             NPM_CONFIG_IGNORE_SCRIPTS: true
+            NX_ANALYTICS: "false"
+            NX_DAEMON: "false"
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:

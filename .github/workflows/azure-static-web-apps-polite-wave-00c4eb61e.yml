@@ -33,6 +33,10 @@ jobs:
       - name: Build Project
         run: npx nx build shop --prod
 
+        # КРОК 3.5: Фікс для Azure (перейменування index.csr.html в index.html)
+      - name: Fix index file for Azure
+        run: cp dist/apps/shop/browser/index.csr.html dist/apps/shop/browser/index.html
+
         # КРОК 4: Завантажуємо результат в Azure
       - name: Deploy to Azure
         id: builddeploy

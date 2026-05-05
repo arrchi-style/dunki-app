@@ -33,9 +33,14 @@ jobs:
       - name: Build Project
         run: npx nx build shop --prod
 
-        # КРОК 3.5: Фікс для Azure (перейменування index.csr.html в index.html)
-      - name: Fix index file for Azure
-        run: cp dist/apps/shop/browser/index.csr.html dist/apps/shop/browser/index.html
+      # КРОК 3.5: Ми готуємо окрему папку 'deploy_dist'
+      # Це гарантує, що index.html буде саме в її корені
+      - name: Prepare Deployment Folder
+        run: |
+          mkdir deploy_dist
+          cp -r dist/apps/shop/browser/* deploy_dist/
+          cp deploy_dist/index.csr.html deploy_dist/index.html || true
+          ls -R deploy_dist # Для перевірки в логах
 
         # КРОК 4: Завантажуємо результат в Azure
       - name: Deploy to Azure
@@ -45,10 +50,10 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_WAVE_00C4EB61E }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/" 
+          app_location: "deploy_dist"
           api_location: ""
-          output_location: "dist/apps/shop/browser" 
-          skip_app_build: true # Тепер це спрацює, бо білд вже лежить в output_location
+          output_location: ""
+          skip_app_build: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
